@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head >
+		<meta charset="utf-8" />
+		<title>Game</title>
+	
+
+		<script src="lib/react.js"></script>
+		<script src="lib/react-dom.js"></script>
+		<script src="lib/babel.min.js"></script>
+
+		<script type="text/babel">
+
+		{/* Make one main component and then inside that need to keep track of which state we are in, and once we know which state we're in, we send a login/register component/class */}
+
+		class Main extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {
+					page: 'Login'
+				};
+
+			this.handleLogin = this.handleLogin.bind(this);
+			this.handleRegister = this.handleRegister.bind(this);
+			this.handleMenu = this.handleMenu.bind(this);
+			this.handleProfile = this.handleProfile.bind(this);
+			this.handleScores = this.handleScores.bind(this);
+			this.handleLogout = this.handleLogout.bind(this);
+			}
+
+			handleRegister(event){
+				this.setState({page: 'Register'});
+			}
+
+			handleLogin(event){
+				this.setState({page: 'Login'});
+			}
+
+			handleMenu(event){
+				this.setState({page: 'Menu'});
+			}
+
+			handleProfile(event){
+				this.setState({page: 'Profile'});
+			}
+
+			handleScores(event){
+				this.setState({page: 'Score'});
+			}
+
+			handleLogout(event){
+				this.setState({page: 'Logout'});
+			}	
+
+
+
+			render(){
+				var component = null;
+				if(this.state.page == 'Login'){
+					component = <Login registerHandler={this.handleRegister} loginSuccessHandler={this.handleMenu}/>;
+				}
+				if(this.state.page == 'Register'){
+					component = <Register loginHandler={this.handleLogin}/>;
+				}
+				if(this.state.page == 'Menu'){
+					component = <Menu profileHandler={this.handleProfile} scoreHandler={this.handleScores} logoutHandler={this.handleLogout} />;
+				}
+				if(this.state.page == 'Profile'){
+					component = <Profile menuHandler={this.handleMenu}/>;
+				}
+				if(this.state.page == 'Scores'){
+					component = <Scores menuHandler={this.handleMenu}/>;
+				}
+				if(this.state.page == 'Logout'){
+					component = <Logout loginHandler={this.handleLogin} menuHandler={this.handleMenu}/>;
+				}
+				console.log(component);
+				return(component);
+			}
+
+			
+				
+
+		}
+
+		class Login extends React.Component {
+		  constructor(props) {
+			super(props);
+			this.state = {
+				user: '', 
+				password: ''
+			};
+
+			this.handleChange = this.handleChange.bind(this);
+			this.handleSubmit = this.handleSubmit.bind(this);
+		  }
+
+		  handleChange(event) {
+			this.setState({[event.target.name]: event.target.value});
+
+		  }
+
+		  handleSubmit(event) {
+		 	this.props.loginSuccessHandler(event);
+			alert('username: ' + this.state.user);
+			alert('password: ' + this.state.password);
+			event.preventDefault();
+			
+		  }
+
+		  render() {
+			return (
+			  	  
+				  <form onSubmit={this.handleSubmit}>
+
+				  	
+						<label>
+							<fieldset>
+								<legend>LOGIN</legend>
+								  <fieldset>
+								  	  <legend>Username</legend>
+									  	<input type="text" name="user" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <fieldset>  	
+									  <legend>Password</legend>
+									  	<input type="password" name="password" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <br></br>
+								  <input type="image" value="Log in" src="img/button.png"/>
+								  <br></br>
+								  Not a Member? 
+								  <br></br>
+								  <input type="image" value="Register" src="img/register.png" onClick={this.props.registerHandler}/>
+							</fieldset>
+						</label> 
+					
+
+				  </form>
+			);
+		  }
+		}
+
+		class Register extends React.Component{
+			constructor(props){
+				super(props);
+				this.state={
+					fullname: '',
+					user: '',
+					email: '',
+					password: '',
+					password2: ''
+				};
+				this.handleChange = this.handleChange.bind(this);
+				this.handleSubmit = this.handleSubmit.bind(this);
+			}
+
+			handleChange(event){
+				this.setState({[event.target.name]: event.target.value});
+			}
+
+			handleSubmit(event){
+				alert('fullname: ' + this.state.fullname);
+				alert('user: ' + this.state.user);
+				alert('email: ' + this.state.email);
+				alert('password: ' + this.state.password);
+				alert('password2: ' + this.state.password2);
+				event.preventDefault();
+			}
+
+			render(){
+				return(
+
+				  <form onSubmit={this.handleSubmit}>
+
+				  	
+						<label>
+							<fieldset>
+								<legend>REGISTER</legend>
+								  <fieldset>
+								  	  <legend>Name</legend>
+									  	<input type="text" name="fullname" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <fieldset>
+								  	  <legend>Username</legend>
+									  	<input type="text" name="user" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <fieldset>
+								  	  <legend>Email</legend>
+									  	<input type="text" name="email" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <fieldset>  	
+									  <legend>Password</legend>
+									  	<input type="password" name="password" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <fieldset>  	
+									  <legend>Re-type Password</legend>
+									  	<input type="password" name="password2" onChange={this.handleChange} required/>
+								  </fieldset>
+								  <br></br>
+								  <input type="image" value="Log in" src="img/register.png"/>
+								  <br></br>
+								  Back to login
+								  <br></br>
+								  <input type="image" value="back" src="img/back.png"onClick={this.props.loginHandler}/>
+							</fieldset>
+						</label> 
+					
+
+				  </form>
+
+				);
+			}
+		}
+
+		class Menu extends React.Component{
+
+			constructor(props){
+				super(props);
+				this.state={
+					userState: 'menu'
+				}
+			}
+
+			render(){
+				return(
+						<label>
+							<fieldset>
+								<legend>MENU</legend>
+								<br></br>
+								<input type="image" name="Profile" value="Profile" src="img/profile.png" onClick={this.props.profileHandler} />
+								<br></br>
+								<input type="image" name="Scores" value="Scores" src="img/scores.png" onClick={this.props.ScoreHandler}/>
+								<br></br>
+								<input type="image" name="Logout" value="Logout" src="img/logout.png" onClick={this.props.logoutHandler}/>
+							</fieldset>
+						</label>
+				);
+			}
+
+		}
+
+		class Profile extends React.Component{
+
+			constructor(props){
+				super(props);
+				this.state={
+					password: '',
+					password2: ''
+
+				}
+				this.handleChange = this.handleChange.bind(this);
+				this.handleSubmit = this.handleSubmit.bind(this);
+			}
+
+			handleChange(event){
+				this.setState({[event.target.name]: event.target.value});
+			}
+
+			handleSubmit(event){
+				alert('password: ' + this.state.password);
+				alert('password2: ' + this.state.password2);
+				{/* check if two passwords are equal then do ajax stuff*/}
+			}
+
+			render(){
+				return(
+					<form onSubmit={this.handleSubmit}>
+
+						<label>
+							
+							<fieldset>
+								<legend>User Settings</legend>
+								<fieldset>
+									<legend>Change Password</legend>
+										New Password: <input type="password" name="password" onChange={this.handleChange} required/>
+										<br></br>
+										Repeat Password: <input type="password" name="password2" onChange={this.handleChange} required/>
+								</fieldset>
+								<br></br>
+								<input type="image" name="submit" value="Submit" src="img/submit.png" onClick={this.handleSubmit}/>
+								<br></br>
+								Go back
+								<br></br>
+								<input type="image" name="back" value="Back" src="img/back.png"onClick={this.props.menuHandler}/>
+							</fieldset>
+
+						</label>
+
+
+					</form>
+				);
+			}
+
+		}
+
+		class Scores extends React.Component{
+		
+
+		}
+
+		class Logout extends React.Component{
+			constructor(props){
+				super(props);
+				this.state={
+					userState: 'logout'
+				}
+
+				this.handleYesSubmit = this.handleYesSubmit.bind(this);
+				this.handleNoSubmit = this.handleNoSubmit.bind(this);
+
+
+			}
+
+			handleYesSubmit(event){
+				this.props.loginHandler(event);
+			}
+
+			handleNoSubmit(event){
+				this.props.menuHandler(event);
+			}
+
+			render(){
+				return(
+					<fieldset>
+						Are you sure you want to logout?
+						<br></br>
+						<input type="image" name="yes" value="Yes" src="img/yes.png" onClick={this.handleYesSubmit}/>
+						<input type="image" name="no" value="No" src="img/no.png" onClick={this.handleNoSubmit}/>
+ 					</fieldset>
+				);
+			}
+
+		}
+
+
+		ReactDOM.render(
+			<Main/>,
+			document.getElementById('root')
+		);
+
+
+
+		</script >
+	</head>
+	<body bgcolor="#E6E6FA" background="img/wallpaper.jpg">
+		<center>
+		<h1><img src="img/title.png" /></h1>
+		<div id="root" style="width: 500px; width: 25%;"></div>
+		</center>
+  	</body>
+</html>
