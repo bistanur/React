@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head >
+		<meta charset="utf-8" />
+		<title>Resume</title>
+
+		<script src="lib/react.js"></script>
+		<script src="lib/react-dom.js"></script>
+		<script src="lib/babel.min.js"></script>
+
+		<script type="text/babel">
+
+		{/* Making one main component, then inside that we keep track of all the components within (i.e. experience, projects, jobs etc.) */}
+
+		class Main extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {
+					page: ''
+				};
+			}
+
+			render(){
+				var component = null;
+				if(this.state.page == ''){
+					component = </>;
+				}
+
+			}
+
+		}
+
+		
+
+
+
