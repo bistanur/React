@@ -16,15 +16,37 @@
 			constructor(props){
 				super(props);
 				this.state = {
-					page: ''
+					page: 'Home'
 				};
+
+			this.handleHome = this.handleHome.bind(this);
+			this.handleEducation = this.handleEducation.bind(this);
+			this.handleProjects = this.handleProjects.bind(this);
+			this.handleExtras = this.handleExtras.bind(this);
+			}
+
+			handleHome(event){
+				this.setState({page: 'Home'});
+			}
+
+			handleEducation(event){
+				this.setState({page: 'Education'});
+			}
+
+			handleProjects(event){
+				this.setState({page: 'Projects'});
+			}
+
+			handleExtras(event){
+				this.setState({page: 'Extras'});
 			}
 
 			render(){
 				var component = null;
-				if(this.state.page == ''){
-					component = </>;
+				if(this.state.page == 'Home'){
+					component = <Home EducationHandler={this.handleEducation} ProjectsHandler={this.handleProjects} ExtrasHandler={this.handleExtras}/>;
 				}
+				if(this.state.page == 'Education')
 
 			}
 
