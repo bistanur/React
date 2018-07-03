@@ -46,7 +46,15 @@
 				if(this.state.page == 'Home'){
 					component = <Home EducationHandler={this.handleEducation} ProjectsHandler={this.handleProjects} ExtrasHandler={this.handleExtras}/>;
 				}
-				if(this.state.page == 'Education')
+				if(this.state.page == 'Education'){
+					component = </>;
+				}
+				if(this.state.page == 'Projects'){
+					component = </>;
+				}
+				if(this.state.page == 'Extras'){
+					component = </>;
+				}	
 
 			}
 
