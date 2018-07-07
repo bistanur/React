@@ -47,13 +47,13 @@
 					component = <Home EducationHandler={this.handleEducation} ProjectsHandler={this.handleProjects} ExtrasHandler={this.handleExtras}/>;
 				}
 				if(this.state.page == 'Education'){
-					component = <Education/>;
+					component = <Education HomeHandler={this.handleHome} />;
 				}
 				if(this.state.page == 'Projects'){
-					component = <Projects/>;
+					component = <Projects HomeHandler={this.handleHome} />;
 				}
 				if(this.state.page == 'Extras'){
-					component = <Extras/>;
+					component = <Extras HomeHandler={this.handleHome}/>;
 				}	
 
 			}
